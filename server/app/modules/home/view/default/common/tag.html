@@ -1,0 +1,8 @@
+<section class="notices pd-20 mb-20 bg-fff">
+    <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
+    <p class="mt-10">
+        {{each tag}}
+        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.name}}.html">{{$value.name}}</a>
+        {{/each}}
+    </p>
+</section>
