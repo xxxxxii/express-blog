@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'Vue3Tinymce',
+  name: "Vue3Tinymce",
 };
 </script>
 
@@ -17,7 +17,7 @@ import {
   onBeforeUnmount,
   onActivated,
   onDeactivated,
-} from 'vue';
+} from "vue";
 
 import {
   uuid,
@@ -28,9 +28,9 @@ import {
   setModeDisabled,
   getContentStyle,
   imageUploadHandler,
-} from '../utils';
+} from "../utils";
 
-import { scriptLoader } from '../scriptLoader';
+import { scriptLoader } from "../scriptLoader";
 
 const props = defineProps({
   modelValue: String,
@@ -41,23 +41,23 @@ const props = defineProps({
   debug: Boolean,
 });
 
-const emit = defineEmits(['update:modelValue', 'init', 'change']);
+const emit = defineEmits(["update:modelValue", "init", "change"]);
 
 let mounting = true;
 
 const state = reactive({
   editor: null,
-  id: uuid('tinymce'),
-  err: '',
+  id: uuid("tinymce"),
+  err: "",
 });
 
-const getModelValue = () => String(props.modelValue ?? '');
+const getModelValue = () => String(props.modelValue ?? "");
 
-const updateValue = (val) => emit('update:modelValue', val);
+const updateValue = (val) => emit("update:modelValue", val);
 
 const printLog = (e, val, oldVal) => {
   if (!props.debug) return;
-  console.log(`来自：${e.type} | \n ${val} \n ${oldVal || '--'}`);
+  console.log(`来自：${e.type} | \n ${val} \n ${oldVal || "--"}`);
 };
 
 const onChanged = (e, editor) => {
@@ -67,32 +67,32 @@ const onChanged = (e, editor) => {
   printLog(e, content);
 
   updateValue(content);
-  emit('change', content);
+  emit("change", content);
 };
 
 const onInited = (editor) => {
   setContent(getModelValue(), editor);
 
-  if (props.disabled && editor.mode.get() !== 'readonly') {
+  if (props.disabled && editor.mode.get() !== "readonly") {
     setModeDisabled(editor);
   }
 
   // change input undo redo keyup
-  editor.on('change input undo redo', (e) => {
+  editor.on("change input undo redo", (e) => {
     onChanged(e, editor);
   });
 
-  emit('init', editor);
+  emit("init", editor);
 };
 
 const initEditor = () => {
   if (getTinymce() === null) {
-    state.err = 'tinymce is null';
+    state.err = "tinymce is null";
     return;
   }
 
   if (props.debug) {
-    console.warn('vue3-tinymce 进入debug模式');
+    console.warn("vue3-tinymce 进入debug模式");
   }
 
   let setting = {
@@ -102,7 +102,7 @@ const initEditor = () => {
     setup: (editor) => {
       state.editor = editor;
       if (props.setup) props.setup(editor);
-      editor.on('init', () => onInited(editor));
+      editor.on("init", () => onInited(editor));
     },
   };
 
@@ -123,11 +123,11 @@ watch(
     if (!state.editor || !state.editor.initialized) return;
     if (oldVal === val || val === getContent(state.editor)) return;
 
-    printLog({ type: 'propsChanged to setContent' }, val, oldVal);
+    printLog({ type: "propsChanged to setContent" }, val, oldVal);
 
-    if (val === null) return resetContent('', state.editor);
+    if (val === null) return resetContent("", state.editor);
     setContent(getModelValue(), state.editor);
-  }
+  },
 );
 
 watch(
@@ -135,7 +135,7 @@ watch(
   (val) => {
     if (!state.editor || !state.editor.initialized) return;
     setModeDisabled(state.editor, val);
-  }
+  },
 );
 
 defineExpose({
@@ -151,7 +151,7 @@ onMounted(() => {
 
   const scriptSrc =
     props.scriptSrc ??
-    'https://cdn.bootcdn.net/ajax/libs/tinymce/6.1.2/tinymce.min.js';
+    "https://cdn.bootcdn.net/ajax/libs/tinymce/6.1.2/tinymce.min.js";
   scriptLoader.load(scriptSrc, initEditor);
 });
 

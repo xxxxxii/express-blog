@@ -13,33 +13,50 @@
           <el-row :gutter="20">
             <el-col :sm="24" :md="12">
               <el-form-item label="文章栏目">
-                <el-cascader :props="categoryProps" :show-all-levels="false" v-model="categorySelected"
-                  :options="category" @change="handleChange"></el-cascader>
+                <el-cascader
+                  :props="categoryProps"
+                  :show-all-levels="false"
+                  v-model="categorySelected"
+                  :options="category"
+                  @change="handleChange"
+                ></el-cascader>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
-              <el-form-item label="文章标题" prop="title" :rules="[
-                {
-                  required: true,
-                  message: '请输入文章标题',
-                  trigger: 'blur',
-                },
-                {
-                  min: 1,
-                  max: 100,
-                  message: '标题不能超过100个字',
-                  trigger: 'blur',
-                },
-              ]">
+              <el-form-item
+                label="文章标题"
+                prop="title"
+                :rules="[
+                  {
+                    required: true,
+                    message: '请输入文章标题',
+                    trigger: 'blur',
+                  },
+                  {
+                    min: 1,
+                    max: 100,
+                    message: '标题不能超过100个字',
+                    trigger: 'blur',
+                  },
+                ]"
+              >
                 <el-input v-model="params.title"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
               <el-form-item label="tag标签">
-                <el-select-v2 v-model="params.tag_id" :options="taglist" placeholder="请选择标签" style="width: 240px" multiple
-                  filterable remote :remote-method="searchTag" />
+                <el-select-v2
+                  v-model="params.tag_id"
+                  :options="taglist"
+                  placeholder="请选择标签"
+                  style="width: 240px"
+                  multiple
+                  filterable
+                  remote
+                  :remote-method="searchTag"
+                />
               </el-form-item>
             </el-col>
 
@@ -56,17 +73,31 @@
 
             <el-col :sm="24" :md="12">
               <el-form-item label="发布时间">
-                <el-date-picker v-model="params.createdAt" :default-value="new Date()" type="datetime"
-                  placeholder="选择日期时间">
+                <el-date-picker
+                  v-model="params.createdAt"
+                  :default-value="new Date()"
+                  type="datetime"
+                  placeholder="选择日期时间"
+                >
                 </el-date-picker>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
               <el-form-item class="row" label="缩略图">
-                <el-upload class="avatar-uploader" :http-request="upload" :show-file-list="false"
-                  :before-upload="beforeUpload">
-                  <el-popover placement="top-start" title="上传" :width="200" trigger="hover" content="上传图片作为封面图，大小200k内">
+                <el-upload
+                  class="avatar-uploader"
+                  :http-request="upload"
+                  :show-file-list="false"
+                  :before-upload="beforeUpload"
+                >
+                  <el-popover
+                    placement="top-start"
+                    title="上传"
+                    :width="200"
+                    trigger="hover"
+                    content="上传图片作为封面图，大小200k内"
+                  >
                     <template #reference>
                       <el-icon class="avatar-uploader-icon">
                         <MostlyCloudy />
@@ -75,9 +106,17 @@
                   </el-popover>
                 </el-upload>
 
-                <el-popover v-if="params.img" placement="right" :width="400" trigger="hover">
+                <el-popover
+                  v-if="params.img"
+                  placement="right"
+                  :width="400"
+                  trigger="hover"
+                >
                   <template #reference>
-                    <el-image class="avatar-uploader-icon pointer ml-10" :src="params.img" />
+                    <el-image
+                      class="avatar-uploader-icon pointer ml-10"
+                      :src="params.img"
+                    />
                   </template>
                   <el-image style="width: 100%" :src="params.img" />
                 </el-popover>
@@ -86,10 +125,20 @@
                   默认封面图
                 </el-button>
 
-                <el-drawer v-model="drawer" title="默认封面图" class="w-300" :with-header="false">
+                <el-drawer
+                  v-model="drawer"
+                  title="默认封面图"
+                  class="w-300"
+                  :with-header="false"
+                >
                   <div class="cover row">
-                    <el-image v-for="(item, index) of drawerList" :key="index" :src="item" @click="selectCover(item)"
-                      fit="cover" />
+                    <el-image
+                      v-for="(item, index) of drawerList"
+                      :key="index"
+                      :src="item"
+                      @click="selectCover(item)"
+                      fit="cover"
+                    />
                   </div>
                 </el-drawer>
 
@@ -114,7 +163,12 @@
           field_sort     字段顺序
           -->
           <el-form-item label="内容摘要">
-            <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="params.description"></el-input>
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+              v-model="params.description"
+            ></el-input>
           </el-form-item>
 
           <el-form-item label="文章内容">
@@ -128,7 +182,12 @@
               <el-form-item label="自动封面">
                 <el-checkbox v-model="autoImg">
                   文章第
-                  <el-input v-model="picNum" class="w-80 mr-8 ml-8" placeholder="请输入内容"></el-input>张图
+                  <el-input
+                    v-model="picNum"
+                    class="w-80 mr-8 ml-8"
+                    placeholder="请输入内容"
+                  ></el-input
+                  >张图
                 </el-checkbox>
               </el-form-item>
             </el-col>
@@ -204,13 +263,34 @@
           field_values   字段配置 男 女
           field_sort     字段顺序
           -->
-            <el-col :sm="24" :md="12" :lg="8" v-for="( item, index ) of  field " :key="index">
+            <el-col
+              :sm="24"
+              :md="12"
+              :lg="8"
+              v-for="(item, index) of field"
+              :key="index"
+            >
               <el-form-item :label="item.field_cname">
-                <el-input v-model="item.field_values" max="120" v-if="item.field_type === '1'"></el-input>
-                <el-input type="textarea" :rows="3" v-else-if="item.field_type === '2'" placeholder="请输入内容"
-                  v-model="item.field_values"></el-input>
-                <el-input type="textarea" :rows="3" v-else placeholder="请输入内容" autosize="false"
-                  v-model="item.field_values"></el-input>
+                <el-input
+                  v-model="item.field_values"
+                  max="120"
+                  v-if="item.field_type === '1'"
+                ></el-input>
+                <el-input
+                  type="textarea"
+                  :rows="3"
+                  v-else-if="item.field_type === '2'"
+                  placeholder="请输入内容"
+                  v-model="item.field_values"
+                ></el-input>
+                <el-input
+                  type="textarea"
+                  :rows="3"
+                  v-else
+                  placeholder="请输入内容"
+                  autosize="false"
+                  v-model="item.field_values"
+                ></el-input>
               </el-form-item>
             </el-col>
 
@@ -235,7 +315,7 @@ import { find } from "@/api/category.js";
 import { create, findField } from "@/api/article.js";
 import { search } from "@/api/tag.js";
 import { upload } from "@/api/upload.js";
-import Vue3Tinymce from "@/components/Vue3Tinymce/src/main.vue";
+// import Vue3Tinymce from "@/components/Vue3Tinymce/src/main.vue";
 import { tinymceSet } from "@/config/tinymce.js";
 import { uploadUrl } from "@/api/upload.js";
 import mdEditor from "@/components/mdEditor/mdEditor.vue";
@@ -244,18 +324,17 @@ import {
   getImgUrlFromStr,
   filterHtml,
   tree,
-  
 } from "@/utils/tool.js";
 
 export default {
   name: "article-add",
   components: {
-    Vue3Tinymce,
-    mdEditor
+    // Vue3Tinymce,
+    mdEditor,
   },
   data: () => {
     return {
-      mdValue:'# Vue',
+      mdValue: "# Vue",
       setting: tinymceSet,
       loading: true,
       categorySelected: [], //-1默认选中顶级栏目
