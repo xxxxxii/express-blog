@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "description": "\"A lightweight and high-quality CMS management system based on express+MySQL\"",
   "main": "app.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon app.js",
     "clear": "node timer.js",
