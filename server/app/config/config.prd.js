@@ -1,15 +1,14 @@
-
 const configBase = require("./config.base.js");
 
-const config = {...configBase};
+const config = { ...configBase };
 
 // add mysql config
 config.database = {
   // client: "mysql2", 默认mysql
-  host: "localhost",
+  host: "154.221.19.228",
   // port: "3306",默认3306
   user: "root",
-  password: "zyl123..",
+  password: "Zyl123..",
   database: "chanyue",
   // charset: "utf8mb4",
 };
@@ -20,8 +19,7 @@ config.env = "prd";
 
 // 日志
 config.logger = {
-  level: 'tiny',
+  level: "tiny",
 };
-
 
 module.exports = config;
