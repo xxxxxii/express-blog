@@ -90,7 +90,7 @@ export default ({ mode }) => {
           //   return `js/${fileName}/[name].[hash].js`;
           // },
         },
-        minify: "esbuild",
+        // minify: "esbuild",
         terserOptions: {
           compress: {
             drop_console: false, // 去掉console
