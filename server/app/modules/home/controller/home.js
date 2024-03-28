@@ -1,13 +1,17 @@
 const dayjs = require("dayjs");
 const Chan = require("chanjs");
-const marked = require('marked');
-const hljs = require('highlight.js');
+const marked = require("marked");
+const hljs = require("highlight.js");
 const {
   utils: { pages },
 } = Chan.helper;
 const {
-  home: {service: { common,home }},
-  api:{service:{article}}
+  home: {
+    service: { common, home },
+  },
+  api: {
+    service: { article },
+  },
 } = Chan.modules;
 
 const ArticleService = article;
@@ -26,7 +30,11 @@ class HomeController {
       }
       // 指定多栏目栏目获取文章列表 await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
-      res.render(`${template}/index.html`, { ...result, article });
+      res.render(`${template}/index.html`, {
+        ...result,
+        cookies: req.cookies,
+        article,
+      });
     } catch (error) {
       console.error(error);
       next(error);
@@ -77,6 +85,7 @@ class HomeController {
       //获取模板
       let view = navSub.cate.list_view || "list.html";
       await res.render(`${template}/${view}`, {
+        cookies: req.cookies,
         position,
         cate: navSub.cate,
         navSub,
@@ -129,10 +138,10 @@ class HomeController {
       article.updatedAt = dayjs(article.updatedAt).format(
         "YYYY-MM-DD HH:mm:ss"
       );
-      
-   //hljs.highlightAuto(marked.parse(article.content)).value ;
-    article.content =  marked.parse(article.content)
-      console.log(article.content)
+
+      //hljs.highlightAuto(marked.parse(article.content)).value ;
+      article.content = marked.parse(article.content);
+      console.log(article.content);
       // 当前栏目和当前栏目下所有子导航
       const navSub = getChildrenId(cid, category);
 
@@ -157,6 +166,7 @@ class HomeController {
       await res.render(`${template}/${view}`, {
         ...data,
         cate: navSub.cate,
+        cookies: req.cookies,
         article,
         navSub,
         position,
@@ -240,6 +250,7 @@ class HomeController {
       await res.render(`${template}/${view}`, {
         data: data.list,
         cate: navSub.cate,
+        cookies: req.cookies,
         navSub,
         position,
         article,
@@ -274,6 +285,7 @@ class HomeController {
         ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
       await res.render(`${template}/search.html`, {
+        cookies: req.cookies,
         keywords,
         data,
         pageHtml,
@@ -287,7 +299,9 @@ class HomeController {
   // tag
   static async tag(req, res, next) {
     try {
-      const {config: { template }} = req.app.locals;
+      const {
+        config: { template },
+      } = req.app.locals;
       const { path, id } = req.params;
       const page = id || 1;
       const pageSize = 10;
@@ -300,7 +314,12 @@ class HomeController {
       data.list.forEach((ele) => {
         ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
-      await res.render(`${template}/tag.html`, { data, path, pageHtml });
+      await res.render(`${template}/tag.html`, {
+        data,
+        cookies: req.cookies,
+        path,
+        pageHtml,
+      });
     } catch (error) {
       console.error(error);
       next(error);

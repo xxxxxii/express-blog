@@ -167,7 +167,7 @@ export default defineComponent({
 
             setCookie("username", username);
             this.$router.push({
-              path: this.$route.query.redirect || "/",
+              path: this.$route.query.redirect || "/home",
             });
           });
         } else {

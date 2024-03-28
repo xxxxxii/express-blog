@@ -1,5 +1,5 @@
 <template>
-  <div class="pd-20 bg-fff content-wrap">
+  <div class="pd-20 bg-main content-wrap">
     <el-table
       ref="multipleTable"
       :data="tableData"

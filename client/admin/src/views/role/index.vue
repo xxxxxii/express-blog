@@ -1,5 +1,5 @@
 <template>
-  <div class="pd-20 content-wrap bg-fff">
+  <div class="pd-20 content-wrap bg-main">
     <el-row type="flex" class="mt-10 mb-10" justify="end">
       <router-link to="/role/add">
         <el-button type="primary" round>新增</el-button>

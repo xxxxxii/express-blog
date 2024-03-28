@@ -1,1 +1,1 @@
-import{_ as a,o as n,b as s,g as o}from"./.pnpm.js";const r={},t=[o("h1",null,"Dashboard page",-1)];const e=a(r,[["render",function(a,o){return n(),s("div",null,t)}]]);export{e as default};
+import{_ as a}from"./@qiun.js";import{o,c as r,a as s}from"./@vue.js";const n={},t=[s("h1",null,"Dashboard page",-1)];const e=a(n,[["render",function(a,s){return o(),r("div",null,t)}]]);export{e as default};

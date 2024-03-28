@@ -9,7 +9,7 @@
     {{/block}}
 </head>
 
-<body class="bg-f8f8f8">
+<body class="g-bg {{cookies['is-dark'] == 'true'?'dark':''}}">
     <!-- 头部 -->
     {{include './common/header.html'}}
     {{block 'content'}}{{/block}}
@@ -20,7 +20,7 @@
     {{include './common/wap-nav.html'}}
 
 
-    <div class="api ignore mb-20 mt-20 pd-20 bg-f2f2f2">
+    <div class="api ignore mb-20 mt-20 pd-20 ">
         <h1>接口页面--全局数据：</h1>
         <p class="mb-20">config-> {{config}} </p>
         <p class="mb-20">frag-> {{frag}} </p>

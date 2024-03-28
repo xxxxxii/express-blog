@@ -1,6 +1,6 @@
 <!-- eslint-disable no-useless-escape -->
 <template>
-  <div class="mb-20 bg-fff pd-20">
+  <div class="mb-20 bg-main pd-20">
     <el-form ref="params" :model="params" label-width="84px">
       <el-form-item
         label="任务名称"

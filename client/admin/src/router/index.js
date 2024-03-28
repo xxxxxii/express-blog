@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
 import Layout from "@/layout/index.vue";
 
 export const constantRoutes = [
@@ -531,7 +535,11 @@ export const asyncRoutes = [
 export var routes = constantRoutes;
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(
+    import.meta.env.VITE_APP_BASE_DIR
+      ? import.meta.env.VITE_APP_BASE_DIR
+      : null,
+  ),
   linkActiveClass: "active",
   routes,
 });
@@ -550,7 +558,7 @@ router.beforeEach(async (to, from) => {
     //已登录
     if (to.path === "/login") {
       //已登录直接进入首页
-      return { path: "/" };
+      return { path: "/home" };
     } else {
       //校验token是否正确或者过期
       if (user.userInfo) {

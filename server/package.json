@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon app.js",
-    "clear": "node timer.js",
+    "clear": "node ./app/utils/timer.js",
     "prd": "pm2 start pm2.json"
   },
   "keywords": [

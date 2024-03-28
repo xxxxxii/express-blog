@@ -1,7 +1,6 @@
 {{extend './layout.html'}}
 
 {{block 'head'}}
-<meta name="referrer" content="no-referrer">
 <style>
     .text {
         background: linear-gradient(to right, #ff0000, #ffff00);
@@ -18,7 +17,7 @@
 
 {{block 'content'}}
 <!-- 头条文章 -->
-<main class="bg-f2f2f2 pt-10 pb-20 row">
+<main class=" pt-10 pb-20 row">
     <div class="main center mt-10 row gap-20">
         <!-- 最新文章 -->
         <article class="article-index">
@@ -41,7 +40,7 @@
                 </div>
                 {{/if}}
 
-                <div class="w-520 h-290 bg-fff pd-20">
+                <div class="w-520 h-290 bg-main pd-20">
                     {{ if topnews}}
                     {{if topnews.top}}
                     <div class="row justify-between">
@@ -68,7 +67,7 @@
             </section>
             <section class="row justify-between gap-10">
                 {{each article}}
-                <div class="w-460 bg-fff pd-20">
+                <div class="w-460 bg-main pd-20">
                     <h3 class="m-title f-16 row justify-between border-dashed mb-10">{{$value.category.name}}<span
                             class="more"><a href="{{$value.category.path}}/index.html">NEW</a></span></h3>
                     {{if $value.top.title}}
@@ -114,7 +113,7 @@
                 <h3 class="m-title title-dashed f-16 row justify-between">最新图文<span class="more">new</span></h3>
                 <div class="row gap-2">
                     {{each imgs}}
-                    <figure class="books-item  f-14  pd-16 bg-fff">
+                    <figure class="books-item  f-14  pd-16 bg-main">
                         <a class="m-img" href="{{$value.path}}/article-{{$value.id}}.html" title="{{$value.title}}">
                             <img src="{{$value.img}}" alt="{{$value.title}}" /></a>
                         <figcaption class="mt-6 mb-6">
@@ -130,13 +129,13 @@
 
         <aside class="flex-1">
             <!-- 介绍文本 -->
-            <section class="notices pd-20 mb-20 bg-fff">
+            <section class="notices pd-20 mb-20 bg-main">
 
                 {{@ frag["chanyue-introduce"]}}
             </section>
 
             <!-- 通知 -->
-            <section class="notices pd-20 mb-20 bg-fff">
+            <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">推荐文章<span class="more">HOT</span>
                 </h3>
                 <ul class="mt-10">
@@ -150,7 +149,7 @@
             </section>
 
             <!-- tag标签 -->
-            <!-- <section class="notices pd-20 mb-20 bg-fff">
+            <!-- <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
                 <p class="mt-10">
                     {{each tag}}
@@ -161,7 +160,7 @@
             {{include './common/tag.html'}}
 
             <!-- tag标签 -->
-            <section class="notices pd-20 mb-20 bg-fff">
+            <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">友情链接</h3>
                 <p class="mt-10">
                     {{each friendlink}}
@@ -171,7 +170,7 @@
             </section>
 
             {{if recommendImgs.length>0}}
-            <section class="notices pd-20 mb-20 bg-fff">
+            <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">推荐图文</h3>
                 {{each recommendImgs}}
                 <figure class="row justify-between mt-10 border-dashed">

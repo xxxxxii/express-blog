@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
@@ -209,14 +208,14 @@ const relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime); // 相对时间
 dayjs.locale("zh-cn"); // 使用本地化语言
 
-exports.filterFields = (data, fields,isTime=true) => {
+exports.filterFields = (data, fields, isTime = true) => {
   if (!Array.isArray(data) || data.length === 0) {
     return [];
   }
   return data.map((item) => {
-    if(isTime){
-      item.createdAt = dayjs(item.createdAt).format('MM-DD')
-    }else{
+    if (isTime) {
+      item.createdAt = dayjs(item.createdAt).format("MM-DD");
+    } else {
       item.createdAt = dayjs(item.createdAt).fromNow().replace(" ", "");
     }
     // item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -319,88 +318,103 @@ exports.fail = {
   msg: "error",
 };
 
-
-exports.cleanHTML = (htmlStr)=>{
+exports.cleanHTML = (htmlStr) => {
   // 清除 <script> 标签
-  htmlStr = htmlStr.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  htmlStr = htmlStr.replace(
+    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+    ""
+  );
 
   // 清除 <style> 标签
-  htmlStr = htmlStr.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+  htmlStr = htmlStr.replace(
+    /<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi,
+    ""
+  );
 
   // 清除空白 <p> 标签
-  htmlStr = htmlStr.replace(/<p[^>]*>(\s|&nbsp;)*<\/p>/gi, '');
+  htmlStr = htmlStr.replace(/<p[^>]*>(\s|&nbsp;)*<\/p>/gi, "");
 
   // 清除 <iframe> 标签
-  htmlStr = htmlStr.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
+  htmlStr = htmlStr.replace(
+    /<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi,
+    ""
+  );
 
   // 清除 <audio> 标签
-  htmlStr = htmlStr.replace(/<audio\b[^<]*(?:(?!<\/audio>)<[^<]*)*<\/audio>/gi, '');
+  htmlStr = htmlStr.replace(
+    /<audio\b[^<]*(?:(?!<\/audio>)<[^<]*)*<\/audio>/gi,
+    ""
+  );
 
   // 清除 <video> 标签
-  htmlStr = htmlStr.replace(/<video\b[^<]*(?:(?!<\/video>)<[^<]*)*<\/video>/gi, '');
+  htmlStr = htmlStr.replace(
+    /<video\b[^<]*(?:(?!<\/video>)<[^<]*)*<\/video>/gi,
+    ""
+  );
 
   // 清除 <div>、<span>、<i> 和 <strong> 标签，但保留其文本内容
-  htmlStr = htmlStr.replace(/<(div|span|i|strong|b|sup|sub|article|section)[^>]*>(.*?)<\/\1>/gi, '$2');
+  htmlStr = htmlStr.replace(
+    /<(div|span|i|strong|b|sup|sub|article|section)[^>]*>(.*?)<\/\1>/gi,
+    "$2"
+  );
 
   // 清除标签属性，除了 <div>、<span>、<i> 和 <strong> 标签之外的其他标签属性
-  htmlStr = htmlStr.replace(/<(\w+)\s*[^>]*>/g, function(match, p1) {
+  htmlStr = htmlStr.replace(/<(\w+)\s*[^>]*>/g, function (match, p1) {
     if (!/^(div|span|i|strong)$/i.test(p1)) {
-      return match.replace(/\s+[a-zA-Z0-9-]+=('|")[^'"]*('|")/gi, '');
+      return match.replace(/\s+[a-zA-Z0-9-]+=('|")[^'"]*('|")/gi, "");
     }
     return match;
   });
 
   // 过滤空格和换行符
-  htmlStr = htmlStr.replace(/\s/g, '');
+  htmlStr = htmlStr.replace(/\s/g, "");
 
   return htmlStr;
-}
-
+};
 
 /**
  * @description 获取模板文件
- * @param {*} folderPath 
+ * @param {*} folderPath
  * @returns 获取模板文件
  */
-exports.getHtmlFilesSync = (folderPath)=>{
+exports.getHtmlFilesSync = (folderPath) => {
   // 读取文件夹中的所有文件
   const files = fs.readdirSync(folderPath);
   // 存储所有的HTML文件名
   const htmlFiles = [];
   // 遍历所有文件
-  files.forEach(file => {
+  files.forEach((file) => {
     // 获取文件的完整路径
     const filePath = path.join(folderPath, file);
     // 获取文件的状态信息
     const stats = fs.statSync(filePath);
     // 如果是HTML文件，则将文件名存入数组
-    if (stats.isFile() && path.extname(file) === '.html') {
+    if (stats.isFile() && path.extname(file) === ".html") {
       htmlFiles.push(file);
     }
   });
   return htmlFiles;
-}
+};
 
 /**
  * @description 获取用户登录ip
- * @param {*} req 
+ * @param {*} req
  * @returns 返回ip地址
  */
-exports.getIp = (req)=>{
-  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+exports.getIp = (req) => {
+  let ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   // 如果'x-forwarded-for'不是IP，则可能为代理服务器列表
-  if (typeof ip === 'string' && ip.indexOf(',') >= 0) {
-    ip = ip.split(',')[0];
+  if (typeof ip === "string" && ip.indexOf(",") >= 0) {
+    ip = ip.split(",")[0];
   }
   // 如果以上两种方式都无法获取IP，则使用remoteAddress
   if (!ip) ip = req.connection.remoteAddress;
 
-  if(ip == '::1'){
-    ip = '127.0.0.1';
+  if (ip == "::1") {
+    ip = "127.0.0.1";
   }
   return ip;
-}
-
+};
 
 exports.htmlDecode = (str) => {
   var s = "";

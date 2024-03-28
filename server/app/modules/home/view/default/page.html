@@ -11,14 +11,14 @@
 
 {{block 'content'}}
 <!-- 头条文章 -->
-<main class="bg-f2f2f2 pt-10 pb-20 row">
+<main class=" pt-10 pb-20 row">
 
     <div class="main center mt-10 row gap-20">
         <aside class="flex-1">
 
 
             <!-- tag标签 -->
-            <!-- <section class="notices pd-20 mb-20 bg-fff">
+            <!-- <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
                 <p class="mt-10">
                     {{each tag}}
@@ -31,13 +31,13 @@
 
             <!-- 广告 -->
             {{if frag.ad}}
-            <section class="ad mb-20 bg-fff">
+            <section class="ad mb-20 bg-main">
                 {{@ frag.ad}}
             </section>
             {{/if}}
 
             <!-- 单页栏目 -->
-            <section class="notices pos-s pd-20 mb-20 bg-fff" style="top:80px;z-index: 2;">
+            <section class="notices pos-s pd-20 mb-20 bg-main" style="top:80px;z-index: 2;">
                 <h3 class="m-title border-dashed f-16 row justify-between bold">{{navSub.cate.name}}</h3>
                 {{if data.length>0}}
                 <ul class="mt-10">
@@ -54,14 +54,14 @@
 
         <!-- 最新文章 -->
         <article class="article-index">
-            <!-- <div class="bg-fff radius-6 pd-15 mb-1 f-14 c-999">
+            <!-- <div class="bg-main radius-6 pd-15 mb-1 f-14 c-999">
                 <i class="ico-20 ico-home pos-r t-3"></i>
                 <a class="" href="" >首页</a> /
                 <a class="c-666" href="" >nodejs开发</a> /
                 express专题
             </div> -->
 
-            <div class="bg-fff radius-6 pd-25">
+            <div class="bg-main radius-6 pd-25">
                 {{if article?.content}}
                 <header class="border-b pos-r">
                     <h2 class="f-26 c-252933  bold mt-10">{{article.title}}</h2>

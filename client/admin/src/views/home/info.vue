@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-      <div class="bg-fff pd-20 radius-6 row justify-around mb-20">
+      <div class="bg-main pd-20 radius-6 row justify-around mb-20">
         <router-link class="c-1d2129" to="/article">
           <div class="row flex-col align-c">
             <div class="tj-img">
@@ -51,7 +51,7 @@
       <div class="row">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20 row chart">
+            <div class="bg-main pd-20 radius-6 mb-20 row chart">
               <qiun-vue-ucharts
                 type="ring"
                 :opts="opts"
@@ -60,7 +60,7 @@
             </div>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20">
+            <div class="bg-main pd-20 radius-6 mb-20">
               <div class="mb-12 f-16 c-1d2129 bold">系统特色</div>
               <p class="f-13 mb-6 c-4e5969">
                 ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统。它具备多种类型网站开发，易扩展、基于模块化和插件化开发模式，适用于商用企业级程序开发。
@@ -95,7 +95,7 @@
     </el-col>
 
     <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
-      <div class="bg-fff pd-20 radius-6 mb-20">
+      <div class="bg-main pd-20 radius-6 mb-20">
         <div class="mb-12 f-16 c-1d2129 bold">技术架构</div>
         <p class="f-13 mb-6 c-4e5969">
           <span class="c-333">服务架构：</span>nodejs express mysql
@@ -109,7 +109,7 @@
         <p class="f-13 mb-6 row"><span>联系邮箱：</span>867528315@qq.com</p>
       </div>
 
-      <div class="bg-fff pd-20 radius-6 mb-20">
+      <div class="bg-main pd-20 radius-6 mb-20">
         <div class="mb-12 f-16 c-1d2129 bold">技术服务</div>
         <p class="f-13 mb-6 c-4e5969 row justify-around">
           <span class="c-1d2129 col-12 mb-10">前端开发</span>

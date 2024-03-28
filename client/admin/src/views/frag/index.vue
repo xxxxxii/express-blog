@@ -1,5 +1,5 @@
 <template>
-  <div class="pd-20 bg-fff">
+  <div class="pd-20 bg-main">
     <!-- 搜索区域 -->
     <div
       class="search row justify-between align-c pt-10 pl-20 pr-20 pb-20 mb-20"

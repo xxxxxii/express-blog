@@ -1,5 +1,5 @@
 <template>
-  <div class="pd-20 bg-fff">
+  <div class="pd-20 bg-main">
     <el-row type="flex" class="mt-10 mb-10" justify="end">
       <router-link to="/friendlink/add">
         <el-button type="primary" round>新增</el-button>

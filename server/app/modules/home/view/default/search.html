@@ -11,17 +11,17 @@
 
 {{block 'content'}}
 <!-- 头条文章 -->
-<main class="bg-f2f2f2 pt-10 pb-20 row">
+<main class=" pt-10 pb-20 row">
     <div class="main center mt-10 row gap-20">
         <!-- 最新文章 -->
         <article class="article-index">
-            <div class="bg-fff pd-15 mb-1 f-14 c-999 radius-6">
+            <div class="bg-main pd-15 mb-1 f-14 c-999 radius-6">
                 <i class="ico-20 ico-home pos-r t-3"></i>
                 <a class="" href="/">首页</a> /
                 <a class="c-666" href="/search/{{keywords}}.html">搜索词：<span class="red">{{keywords}}</span></a>
             </div>
 
-            <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
+            <div class="bg-main pl-25 pr-25 pb-25 radius-6 list">
                 {{if data.list.length>0}}
                 <ul>
                     {{each data.list}}
@@ -67,7 +67,7 @@
                 {{/if}}
             </div>
 
-            <div class="page mt-1 bg-fff pd-25 row justify-center  radius-6" id="app">
+            <div class="page mt-1 bg-main pd-25 row justify-center  radius-6" id="app">
                 <ul class="overflow-h center" id="page">
                     {{@ pageHtml}}
                 </ul>
@@ -78,7 +78,7 @@
         <aside class="flex-1">
 
             <!-- tag标签 -->
-            <section class="notices pd-20 mb-20 bg-fff">
+            <section class="notices pd-20 mb-20 bg-main">
                 <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
                 <p class="mt-10">
                     {{each tag}}
@@ -90,7 +90,7 @@
 
 
             <!-- 广告 -->
-            <section class="ad mb-20 bg-fff">
+            <section class="ad mb-20 bg-main">
 
                 {{@ frag.ad || ''}}
             </section>

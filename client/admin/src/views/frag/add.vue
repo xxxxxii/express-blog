@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-10 ml-10 mb-20 pd-10 bg-fff">
+  <div class="mr-10 ml-10 mb-20 pd-10 bg-main">
     <el-form
       ref="params"
       :model="params"

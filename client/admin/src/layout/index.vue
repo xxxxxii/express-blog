@@ -64,6 +64,7 @@
 
 <script name="LayOut">
 import { defineComponent } from "vue";
+// import SideBar from "./components/sidebar/index.vue";
 import SideBar from "./components/sidebar/index.vue";
 import NavBar from "./components/navbar/index.vue";
 import TagView from "./components/tagsview/index.vue";

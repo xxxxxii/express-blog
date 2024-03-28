@@ -1,10 +1,19 @@
 <header class="row header-wrap justify-center pos-r">
     <div class="header row align-c justify-between pt-5 pb-5">
         <h1 class="logo" title="{{site.name}}">
-            <a href="/" class="c-141414">{{site.name}}</a>
+            <a href="/">{{site.name}}</a>
         </h1>
-        {{include './search.html'}}
-        <div class="ico-open"></div>
+        <div style="display: flex; align-items: center;">
+            {{include './search.html'}}
+            <div class="toggle-switch">
+                <label class="switch-label">
+                    <input type="checkbox" id="theme-input" class="checkbox" {{cookies['is-dark']=='true'
+                        ?'checked':''}} onchange="themeTarget(event)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="ico-open"></div>
+        </div>
     </div>
     <div class="w-1200 center">
         {{include './nav.html'}}
@@ -12,3 +21,82 @@
 </header>
 
 
+<script>
+    function themeTarget(e) {
+        console.log(e.target.checked)
+        let themeDom = document.getElementById('theme-input')
+        // sessionStorage.setItem('is-dark', e.target.checked)
+        document.cookie = `is-dark=${e.target.checked} ;path=/;`;
+        themeDom.checked = e.target.checked
+        if (e.target.checked) {
+            document.body.classList.remove('light')
+            document.body.classList.add("dark")
+        } else {
+            document.body.classList.remove('dark')
+            document.body.classList.add("light")
+        }
+    }
+</script>
+
+<style>
+    .toggle-switch {
+        position: relative;
+        width: 40px;
+        height: 20px;
+        --light: #d8dbe0;
+        --dark: #28292c;
+        --link: rgb(27, 129, 112);
+        --link-hover: rgb(24, 94, 82);
+    }
+
+    .switch-label {
+        position: absolute;
+        width: 40px;
+        height: 20px;
+        background-color: var(--light);
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .checkbox {
+        position: absolute;
+        display: none;
+    }
+
+    .slider {
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        border-radius: 25px;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+    }
+
+    .checkbox:checked~.slider {
+        background-color: var(--dark);
+    }
+
+    .slider::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        -webkit-box-shadow: inset 6px -4px 0px 0px var(--dark);
+        box-shadow: inset 6px -4px 0px 0px var(--dark);
+        background-color: var(--light);
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+    }
+
+    .checkbox:checked~.slider::before {
+        -webkit-transform: translateX(20px);
+        -ms-transform: translateX(20px);
+        transform: translateX(20px);
+        background-color: var(--light);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>

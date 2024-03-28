@@ -1,5 +1,5 @@
 <template>
-  <div class="pd-20 bg-fff content-wrap">
+  <div class="pd-20 bg-main content-wrap">
     <el-row type="flex" class="mt-10 mb-10" justify="end">
       <router-link to="/slide/add">
         <el-button type="primary" round>新增</el-button>

@@ -1,11 +1,14 @@
-
 const Chan = require("chanjs");
 const {
-  home: {service: { common }},
-  api:{service:{site,frag,tag,friendlink}}
+  home: {
+    service: { common },
+  },
+  api: {
+    service: { site, frag, tag, friendlink },
+  },
 } = Chan.modules;
 
-let data = {site,frag,tag,friendlink,common};
+let data = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
@@ -37,6 +40,7 @@ module.exports = () => {
       const tag = await data.tag.list();
       req.app.locals = {
         ...req.app.locals,
+        cookies: req.cookies,
         site,
         nav,
         category,

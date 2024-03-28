@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from "node:url";
 
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
+
 import vue from "@vitejs/plugin-vue";
 
 import legacy from "@vitejs/plugin-legacy";
@@ -15,8 +16,11 @@ import copy from "rollup-plugin-copy";
 
 export default ({ mode }) => {
   console.log("mode--->", mode);
+  // 此处加载当前 mode（例如 development）的环境变量
+  const env = loadEnv(mode, process.cwd());
 
   return defineConfig({
+    // publicPath: "/admin",
     plugins: [
       vue(),
       legacy({
@@ -100,7 +104,7 @@ export default ({ mode }) => {
       },
     },
 
-    base: "./", // 生产环境下的公共路径
+    base: env.VITE_APP_BASE_DIR, // 生产环境下的公共路径
     filenameHashing: true, //文件名哈希
     lintOnSave: true,
 

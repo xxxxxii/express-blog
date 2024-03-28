@@ -1,5 +1,7 @@
 const Chan = require("chanjs");
-let {utils: { filterFields, formatDay}} = Chan.helper;
+let {
+  utils: { filterFields, formatDay },
+} = Chan.helper;
 let knex = Chan.knex;
 
 class CommonService {
@@ -8,26 +10,29 @@ class CommonService {
   // 网站栏目
   static async category() {
     try {
-      let res = await knex("category").select([
-        "id",
-        "pid",
-        "name",
-        "pinyin",
-        "path",
-        "sort",
-        "target",
-        "status",
-        "list_view",
-        "article_view",
-        "seo_title",
-        "seo_keywords",
-        "seo_description",
-        "type",
-      ]).orderBy("sort", "ASC");
+      let res = await knex("category")
+        .select([
+          "id",
+          "pid",
+          "name",
+          "pinyin",
+          "path",
+          "sort",
+          "target",
+          "status",
+          "list_view",
+          "article_view",
+          "seo_title",
+          "seo_keywords",
+          "seo_description",
+          "type",
+          "href",
+        ])
+        .orderBy("sort", "ASC");
       return res;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
@@ -70,7 +75,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
@@ -116,7 +121,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`cid->${cid} attr-> ${attr} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -129,16 +134,16 @@ class CommonService {
     try {
       // 执行查询
       const result = await knex("article AS a")
-      .select("a.cid", "t.id", "t.name", "t.path")
-      .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
-      .where("a.id", aid)
-      .where("a.status", 0)
-      .limit(10)
-      .offset(0);;
+        .select("a.cid", "t.id", "t.name", "t.path")
+        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .where("a.id", aid)
+        .where("a.status", 0)
+        .limit(10)
+        .offset(0);
       return result;
     } catch (err) {
       console.error(`aid->${aid}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -147,7 +152,7 @@ class CommonService {
    * @description 返回所有的根栏目
    * @returns {Array}
    */
-  static async getAllParentCategory(idArray=[]) {
+  static async getAllParentCategory(idArray = []) {
     try {
       const result = await knex("category")
         .select([
@@ -163,12 +168,12 @@ class CommonService {
         ])
         .where("pid", 0)
         .where("type", 0)
-        .where((builder) => (!idArray.length || builder.whereIn("id", idArray)))
+        .where((builder) => !idArray.length || builder.whereIn("id", idArray))
         .orderBy("sort", "ASC");
       return result;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
@@ -177,52 +182,50 @@ class CommonService {
    * @param {Array} cids 栏目id
    * @returns {Array}
    */
-   static async getArticleListByCids(cids=[]){
+  static async getArticleListByCids(cids = []) {
     try {
-
       //tag去重
       function uniqueByPath(arr) {
         const map = new Map();
         return arr.filter((item) => {
-            if (!map.has(item.path)) {
-                map.set(item.path, item);
-                return true;
-            }
-            return false;
+          if (!map.has(item.path)) {
+            map.set(item.path, item);
+            return true;
+          }
+          return false;
         });
       }
 
-        //主栏目-图-文
-        let cate = await CommonService.getAllParentCategory(cids);
-        const cateField = ["id", "name", "path", "pinyin"];
-        cate = filterFields(cate, cateField);
-        let article = [];
-        for (let i = 0, item; i < cate.length; i++) {
-          let item = cate[i];
-          let tags = [];
-          // 推荐
-          let top = await CommonService.getArticleListByCid(item.id, 1, 2);
-          // 最新
-          let list = await CommonService.getArticleListByCid(item.id, 4);
-          list = formatDay(list);
+      //主栏目-图-文
+      let cate = await CommonService.getAllParentCategory(cids);
+      const cateField = ["id", "name", "path", "pinyin"];
+      cate = filterFields(cate, cateField);
+      let article = [];
+      for (let i = 0, item; i < cate.length; i++) {
+        let item = cate[i];
+        let tags = [];
+        // 推荐
+        let top = await CommonService.getArticleListByCid(item.id, 1, 2);
+        // 最新
+        let list = await CommonService.getArticleListByCid(item.id, 4);
+        list = formatDay(list);
 
-          // tag列表
-          for (let j = 0, sub; j < list.length; j++) {
-            sub = list[j];
-            let res = await CommonService.getTagsFromArticleByAid(sub.id);
-            tags.push(...res);
-          }
-          tags = uniqueByPath(tags);
-          article.push({ top, list, tags, category: item })
+        // tag列表
+        for (let j = 0, sub; j < list.length; j++) {
+          sub = list[j];
+          let res = await CommonService.getTagsFromArticleByAid(sub.id);
+          tags.push(...res);
         }
-        
-        return article;
+        tags = uniqueByPath(tags);
+        article.push({ top, list, tags, category: item });
+      }
 
+      return article;
     } catch (error) {
       console.error(err);
-      return err;;
+      return err;
     }
-   }
+  }
 
   /**
    * @description 浏览pv排行(全局|指定栏目)
@@ -264,7 +267,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -313,7 +316,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -376,7 +379,7 @@ class CommonService {
       };
     } catch (err) {
       console.error(`id->${id} current->${current} pageSize->${pageSize}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -442,7 +445,7 @@ class CommonService {
         `id->${path} current->${current} pageSize->${pageSize}`,
         err
       );
-      return err;;
+      return err;
     }
   }
 
@@ -464,25 +467,24 @@ class CommonService {
       return tags;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
   // banner轮播图
   static async bannerSlide(cur = 1, pageSize = 10) {
     try {
-     
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(['id','title','img_url','link_url'])
-        .from('slide')
+        .select(["id", "title", "img_url", "link_url"])
+        .from("slide")
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
       return list;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 }

@@ -1,1 +1,1 @@
-System.register(["./.pnpm-legacy.js"],(function(e,t){"use strict";var n,r,u,s;return{setters:[e=>{n=e._,r=e.o,u=e.b,s=e.g}],execute:function(){const t={},c=[s("h1",null,"Dashboard page",-1)];e("default",n(t,[["render",function(e,t){return r(),u("div",null,c)}]]))}}}));
+System.register(["./@qiun-legacy.js","./@vue-legacy.js"],(function(e,t){"use strict";var n,r,u,s;return{setters:[e=>{n=e._},e=>{r=e.o,u=e.c,s=e.a}],execute:function(){const t={},c=[s("h1",null,"Dashboard page",-1)];e("default",n(t,[["render",function(e,t){return r(),u("div",null,c)}]]))}}}));
